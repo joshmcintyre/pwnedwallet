@@ -80,7 +80,7 @@ class App extends Component {
         // Compute the ECDSA public key
         var ec = new elliptic.ec("secp256k1");
         var keyPair = ec.keyFromPrivate(privkeyHex);
-        var pubkeyHex = keyPair.getPublic().encode("hex");//.substr(2);
+        var pubkeyHex = keyPair.getPublic().encode("hex");
 
         // Compute the double hash
         var round1 = crypto.createHash("sha256").update(pubkeyHex, "hex").digest("hex");
@@ -127,8 +127,8 @@ class App extends Component {
         {
             balanceTable = (    <table>
                         <tbody>
-                            <tr><th>Amount Received</th><td>{ this.state.balanceData.total_received }</td></tr>
-                            <tr><th>Amount Sent</th><td>{ this.state.balanceData.total_sent }</td></tr>
+                            <tr><th>Amount Received</th><td>{ this.state.balanceData.total_received / 100000000 }</td></tr>
+                            <tr><th>Amount Sent</th><td>{ this.state.balanceData.total_sent / 100000000 }</td></tr>
                             <tr><th>Number of Transactions</th><td>{ this.state.balanceData.n_tx }</td></tr>
                             <tr><th>Emptied?</th><td>{ this.state.balanceData.final_balance === 0 ? "Yes, pwned!" : "No, but still unsafe!" }</td></tr>
                         </tbody>
