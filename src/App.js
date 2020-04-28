@@ -122,6 +122,20 @@ class App extends Component {
                     );
         }
         
+        var walletState = "";
+        if (this.state.balanceData.final_balance === 0 && this.state.balanceData.n_tx === 0)
+        {
+            walletState = "Unused wallet - don't use it!";
+        }
+        else if (this.state.balanceData.final_balance === 0)
+        {
+            walletState = "Yes, wallet pwned or emptied by user";
+        }
+        else
+        {
+            walletState = "No, but still unsafe";
+        }
+
         var balanceTable = "";
         if (this.state.balanceData !== "")
         {
@@ -130,7 +144,7 @@ class App extends Component {
                             <tr><th>Amount Received</th><td>{ this.state.balanceData.total_received / 100000000 }</td></tr>
                             <tr><th>Amount Sent</th><td>{ this.state.balanceData.total_sent / 100000000 }</td></tr>
                             <tr><th>Number of Transactions</th><td>{ this.state.balanceData.n_tx }</td></tr>
-                            <tr><th>Emptied?</th><td>{ this.state.balanceData.final_balance === 0 ? "Yes, pwned!" : "No, but still unsafe!" }</td></tr>
+                            <tr><th>Emptied?</th><td>{ walletState }</td></tr>
                         </tbody>
                         </table>
             
