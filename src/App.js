@@ -45,13 +45,18 @@ class App extends Component {
             timeout : 3000,
          });
 
-         const response = await apiHandle.get(
-            this.state.addressData.address,
-            { crossDomain : true }
-         );
+        try {
+            const response = await apiHandle.get(
+                this.state.addressData.address,
+                { crossDomain : true }
+            );
 
-         const data = response.data;
-         this.setState({ balanceData: data });
+            const data = response.data;
+            this.setState({ balanceData: data });
+        }
+        catch(err) {
+            this.setState({ balanceData : "err" });
+        }
     }
 
     /* Generate an address from a brainwallet phrase
@@ -137,7 +142,7 @@ class App extends Component {
         }
 
         var balanceTable = "";
-        if (this.state.balanceData !== "")
+        if (this.state.balanceData !== "" && this.state.balanceData !== "err")
         {
             balanceTable = (    <table>
                         <tbody>
@@ -149,6 +154,12 @@ class App extends Component {
                         </table>
             
                     );
+        }
+        else if (this.state.balanceData === "err")
+        {
+            balanceTable = (
+                        <p>Error fetching balance data for this address</p>
+                );
         }
 
         return (
